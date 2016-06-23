@@ -1482,7 +1482,6 @@ private:
 		// Given that the resolution of Spark is 1 / 2^12, or ~0.00024 volts, assume that 5 places right of decimal should be sufficient for most applications
         #ifdef SPARK
 		  sprintf(valueString, "%.5f", value);
-		  //dtoa((double)value,5, valueString);
 		#else
 		  dtostrf(value,1,5, valueString);
         #endif
