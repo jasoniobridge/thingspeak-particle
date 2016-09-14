@@ -14,9 +14,6 @@
 #include "ThingSpeak/ThingSpeak.h"
 
 TCPClient client;
-#define VOLTAGE_MAX 3.3
-#define VOLTAGE_MAXCOUNTS 4095.0
-
 
 /*
   *****************************************************************************************
@@ -35,24 +32,24 @@ void setup() {
 void loop() {
   // Read the input on each pin, convert the reading, and set each field to be sent to ThingSpeak.
   // On Particle: 0 - 4095 maps to 0 - 3.3 volts
-  float pinVoltage = analogRead(A0) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  float pinVoltage = analogRead(A0) * (3.3 / 4095.0);
 
   ThingSpeak.setField(1,pinVoltage);
-  pinVoltage = analogRead(A1) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A1) * (3.3 / 4095.0);
   ThingSpeak.setField(2,pinVoltage);
-  pinVoltage = analogRead(A2) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A2) * (3.3 / 4095.0);
   ThingSpeak.setField(3,pinVoltage);
-  pinVoltage = analogRead(A3) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A3) * (3.3 / 4095.0);
   ThingSpeak.setField(4,pinVoltage);
-  pinVoltage = analogRead(A4) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A4) * (3.3 / 4095.0);
   ThingSpeak.setField(5,pinVoltage);
-  pinVoltage = analogRead(A5) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A5) * (3.3 / 4095.0);
   ThingSpeak.setField(6,pinVoltage);
-  pinVoltage = analogRead(A6) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A6) * (3.3 / 4095.0);
   ThingSpeak.setField(7,pinVoltage);
-  pinVoltage = analogRead(A7) * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  pinVoltage = analogRead(A7) * (3.3 / 4095.0);
   ThingSpeak.setField(8,pinVoltage);
-
+  
   // Write the fields that you've set all at once.
   ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);  
 

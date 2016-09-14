@@ -14,10 +14,6 @@
 #include "ThingSpeak/ThingSpeak.h"
 
 TCPClient client;
-// On Particle: 0 - 4095 maps to 0 - 3.3 volts
-#define VOLTAGE_MAX 3.3
-#define VOLTAGE_MAXCOUNTS 4095.0
-
 
 /*
   *****************************************************************************************
@@ -38,7 +34,7 @@ void loop() {
   int sensorValue = analogRead(A0);
   // Convert the analog reading 
   // On Particle: 0 - 4095 maps to 0 - 3.3 volts
-  float voltage = sensorValue * (VOLTAGE_MAX / VOLTAGE_MAXCOUNTS);
+  float voltage = sensorValue * (3.3 / 4095.0);
 
   // Write to ThingSpeak. There are up to 8 fields in a channel, allowing you to store up to 8 different
   // pieces of information in a channel.  Here, we write to field 1.
