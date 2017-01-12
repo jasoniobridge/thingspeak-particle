@@ -1265,7 +1265,7 @@ class ThingSpeakClass
 				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readStringField(channelNumber: " + String(channelNumber) + " readAPIKey: " + String(readAPIKey) + " field: " + String(field) +")", SPARK_PUBLISH_TTL, PRIVATE);
 			}
 			else{
-				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readStringField(channelNumber: " + " field: " + String(field) +")", SPARK_PUBLISH_TTL, PRIVATE);	
+				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readStringField(channelNumber: " + String(channelNumber) + " field: " + String(field) + ")", SPARK_PUBLISH_TTL, PRIVATE);	
 			}
 		#endif
 		return readRaw(channelNumber, String(String("/fields/") + String(field) + String("/last")), readAPIKey);
@@ -1493,8 +1493,6 @@ class ThingSpeakClass
 	};
 	
 	/**
-	
-	/**
 	 * @brief Read a raw response from a public ThingSpeak channel
 	 * @param channelNumber Channel number
 	 * @param URLSuffix Raw URL to write to ThingSpeak as a String.  See the documentation at https://thingspeak.com/docs/channels#get_feed
@@ -1533,11 +1531,11 @@ class ThingSpeakClass
 		#ifdef PRINT_DEBUG_MESSAGES
 			if(NULL != readAPIKey)
 			{
-				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readRaw   (channelNumber: " + String(Channel) + " readAPIKey: " + String(readAPIKey) + " URLSuffix: \"" + URLSuffix + "\")" , SPARK_PUBLISH_TTL, PRIVATE);	
+				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readRaw   (channelNumber: " + String(channelNumber) + " readAPIKey: " + String(readAPIKey) + " URLSuffix: \"" + URLSuffix + "\")" , SPARK_PUBLISH_TTL, PRIVATE);	
 			}
 			else
 			{
-				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readRaw   (channelNumber: " + String(Channel) + " URLSuffix: \"" + URLSuffix + "\")" , SPARK_PUBLISH_TTL, PRIVATE);	
+				Particle.publish(SPARK_PUBLISH_TOPIC, "ts::readRaw   (channelNumber: " + String(channelNumber) + " URLSuffix: \"" + URLSuffix + "\")" , SPARK_PUBLISH_TTL, PRIVATE);	
 			}
 		#endif
 
