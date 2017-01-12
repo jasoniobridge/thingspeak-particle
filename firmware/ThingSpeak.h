@@ -1624,6 +1624,36 @@ class ThingSpeakClass
 	};
 private:
 
+	String getJSONValueByKey(String textToSearch, String key)
+	{	
+		if(textToSearch.length() == 0){
+			return String("");
+		} 
+		
+		String searchPhrase = String("\"") + key + String("\":\"");
+		
+		int fromPosition = textToSearch.indexOf(searchPhrase,0);
+		
+		if(fromPosition == -1){
+			// return because there is no status or it's null
+			return String("");
+		}
+		
+		fromPosition = fromPosition + searchPhrase.length();
+				
+		int toPosition = textToSearch.indexOf("\"", fromPosition);
+		
+		
+		if(toPosition == -1){
+			// return because there is no end quote
+			return String("");
+		}
+		
+		textToSearch.remove(toPosition);
+		
+		return textToSearch.substring(fromPosition);	
+	}
+	
     int abortWriteRaw()
     {
         this->client->stop();
@@ -1681,6 +1711,10 @@ private:
 	float nextWriteLongitude;
 	float nextWriteElevation;
 	int lastReadStatus;
+	String nextWriteStatus;
+	String nextWriteTwitter;
+	String nextWriteTweet;
+	String nextWriteCreatedAt;
 
 	bool connectThingSpeak()
 	{
@@ -1849,6 +1883,10 @@ private:
 		this->nextWriteLatitude = NAN;
 		this->nextWriteLongitude = NAN;
 		this->nextWriteElevation = NAN;
+		this->nextWriteStatus = "";
+		this->nextWriteTwitter = "";
+		this->nextWriteTweet = "";
+		this->nextWriteCreatedAt = "";
 	};
 };
 
