@@ -46,8 +46,8 @@
 #ifndef ThingSpeak_h
 #define ThingSpeak_h
 
-//#define PRINT_DEBUG_MESSAGES
-//#define PRINT_HTTP
+#define PRINT_DEBUG_MESSAGES
+#define PRINT_HTTP
 
 
 // Create platform defines for Particle devices
