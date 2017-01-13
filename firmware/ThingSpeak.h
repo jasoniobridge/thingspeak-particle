@@ -1770,21 +1770,21 @@ private:
         {
 		    if (!this->client->print("Host: ")) return false;
 		    if (!this->client->print(this->customHostName)) return false;
-		    if (!this->client->print("\n")) return false;
+		    if (!this->client->print("\r\n")) return false;
         }
         else
         {
-		    if (!this->client->print("Host: api.thingspeak.com\n")) return false;
+		    if (!this->client->print("Host: api.thingspeak.com\r\n")) return false;
         }
-		if (!this->client->print("Connection: close\n")) return false;
+		if (!this->client->print("Connection: close\r\n")) return false;
 		if (!this->client->print("User-Agent: ")) return false;
 		if (!this->client->print(TS_USER_AGENT)) return false;
-		if (!this->client->print("\n")) return false;
+		if (!this->client->print("\r\n")) return false;
 		if(NULL != APIKey)
 		{
 			if (!this->client->print("X-THINGSPEAKAPIKEY: ")) return false;
 			if (!this->client->print(APIKey)) return false;
-			if (!this->client->print("\n")) return false;
+			if (!this->client->print("\r\n")) return false;
 		}
 		return true;
 	};
@@ -1839,7 +1839,7 @@ private:
 			Particle.publish(SPARK_PUBLISH_TOPIC, "Found end of header", SPARK_PUBLISH_TTL, PRIVATE);
 		#endif
 		// This is a workaround to a bug in the Spark implementation of String
-		String tempString = client->readStringUntil('\r');
+		String tempString = client->readString();
 		response = tempString;
 		#ifdef PRINT_HTTP
 			Particle.publish(SPARK_PUBLISH_TOPIC, "Response: \"" + tempString + "\"", SPARK_PUBLISH_TTL, PRIVATE);
