@@ -760,15 +760,17 @@ class ThingSpeakClass
 	};
 
 	/**
-	 * @brief Set the Twitter account to use for an update to be tweeted.
-	 * To send a message to twitter call setTwitter() and setTweet() then call writeFields()
+	 * @brief Set the Twitter account and message to use for an update to be tweeted.
+	 * To send a message to twitter call setTwitterTweet() then call writeFields()
 	 * @param twitter Twitter account name as a String.
+	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
 	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
-	 * @see setTweet(), writeFields()
+	 * @remark Prior to using this feature, a twitter account must be linked to your ThingSpeak account. Do this by logging into ThingSpeak and going to Apps, then ThingTweet and clicking Link Twitter Account.
+	 * @see writeFields(),getLastReadStatus()
 	 * @code
 		void loop() {
 			int sensor1Value = analogRead(A0);
-			float sensor2Voltage = analogRead(A1) * (3.3 / 4095.0);
+			float sensor2Voltage = analogRead(A1) * (5.0 / 1023.0);
 			String sensor3Meaning;
 			int sensor3Value = analogRead(A2);
 			if (sensor3Value < 400) {
@@ -783,28 +785,29 @@ class ThingSpeakClass
 			ThingSpeak.setField(1, sensor1Value);
 			ThingSpeak.setField(2, sensor2Voltage);
 			ThingSpeak.setField(3, timeRead);
-			ThingSpeak.setTwitter("YourTwitterAccountName");
-			ThingSpeak.setTweet(sensor3Meaning);
+			ThingSpeak.setTwitterTweet("YourTwitterAccountName",sensor3Meaning);
 			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
 			delay(20000);	
 		}
 	 * @endcode
 	 */	
-	int setTwitter(const char * twitter)
+	int setTwitterTweet(const char * twitter, const char * tweet)
 	{
-		return setTwitter(String(twitter));
+		return setTwitterTweet(String(twitter), String(tweet));
 	};
 
 	/**
-	 * @brief Set the Twitter account to use for an update to be tweeted.
-	 * To send a message to twitter call setTwitter() and setTweet() then call writeFields()
+	 * @brief Set the Twitter account and message to use for an update to be tweeted.
+	 * To send a message to twitter call setTwitterTweet() then call writeFields()
 	 * @param twitter Twitter account name as a String.
+	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
 	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
-	 * @see setTweet(), writeFields()
+	 * @remark Prior to using this feature, a twitter account must be linked to your ThingSpeak account. Do this by logging into ThingSpeak and going to Apps, then ThingTweet and clicking Link Twitter Account.
+	 * @see writeFields(),getLastReadStatus()
 	 * @code
 		void loop() {
 			int sensor1Value = analogRead(A0);
-			float sensor2Voltage = analogRead(A1) * (3.3 / 4095.0);
+			float sensor2Voltage = analogRead(A1) * (5.0 / 1023.0);
 			String sensor3Meaning;
 			int sensor3Value = analogRead(A2);
 			if (sensor3Value < 400) {
@@ -819,108 +822,105 @@ class ThingSpeakClass
 			ThingSpeak.setField(1, sensor1Value);
 			ThingSpeak.setField(2, sensor2Voltage);
 			ThingSpeak.setField(3, timeRead);
-			ThingSpeak.setTwitter("YourTwitterAccountName");
-			ThingSpeak.setTweet(sensor3Meaning);
+			ThingSpeak.setTwitterTweet("YourTwitterAccountName",sensor3Meaning);
 			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
 			delay(20000);	
 		}
 	 * @endcode
-	 */		
-    int setTwitter(String twitter)
+	 */	
+	int setTwitterTweet(String twitter, const char * tweet)
 	{
+		return setTwitterTweet(twitter, String(tweet));
+	};
+
+	/**
+	 * @brief Set the Twitter account and message to use for an update to be tweeted.
+	 * To send a message to twitter call setTwitterTweet() then call writeFields()
+	 * @param twitter Twitter account name as a String.
+	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
+	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
+	 * @remark Prior to using this feature, a twitter account must be linked to your ThingSpeak account. Do this by logging into ThingSpeak and going to Apps, then ThingTweet and clicking Link Twitter Account.
+	 * @see writeFields(),getLastReadStatus()
+	 * @code
+		void loop() {
+			int sensor1Value = analogRead(A0);
+			float sensor2Voltage = analogRead(A1) * (5.0 / 1023.0);
+			String sensor3Meaning;
+			int sensor3Value = analogRead(A2);
+			if (sensor3Value < 400) {
+				sensor3Meaning = String("Too Cold!");
+			} else if (sensor3Value > 600) {
+				sensor3Meaning = String("Too Hot!");
+			} else {
+				sensor3Meaning = String("Just Right");
+			}
+			long timeRead = millis();
+
+			ThingSpeak.setField(1, sensor1Value);
+			ThingSpeak.setField(2, sensor2Voltage);
+			ThingSpeak.setField(3, timeRead);
+			ThingSpeak.setTwitterTweet("YourTwitterAccountName",sensor3Meaning);
+			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+			delay(20000);	
+		}
+	 * @endcode
+	 */	
+	int setTwitterTweet(const char * twitter, String tweet)
+	{
+		return setTwitterTweet(String(twitter), tweet);
+	};
+
+	/**
+	 * @brief Set the Twitter account and message to use for an update to be tweeted.
+	 * To send a message to twitter call setTwitterTweet() then call writeFields()
+	 * @param twitter Twitter account name as a String.
+	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
+	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
+	 * @remark Prior to using this feature, a twitter account must be linked to your ThingSpeak account. Do this by logging into ThingSpeak and going to Apps, then ThingTweet and clicking Link Twitter Account.
+	 * @see writeFields(),getLastReadStatus()
+	 * @code
+		void loop() {
+			int sensor1Value = analogRead(A0);
+			float sensor2Voltage = analogRead(A1) * (5.0 / 1023.0);
+			String sensor3Meaning;
+			int sensor3Value = analogRead(A2);
+			if (sensor3Value < 400) {
+				sensor3Meaning = String("Too Cold!");
+			} else if (sensor3Value > 600) {
+				sensor3Meaning = String("Too Hot!");
+			} else {
+				sensor3Meaning = String("Just Right");
+			}
+			long timeRead = millis();
+
+			ThingSpeak.setField(1, sensor1Value);
+			ThingSpeak.setField(2, sensor2Voltage);
+			ThingSpeak.setField(3, timeRead);
+			ThingSpeak.setTwitterTweet("YourTwitterAccountName",sensor3Meaning);
+			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+			delay(20000);	
+		}
+	 * @endcode
+	 */	
+	int setTwitterTweet(String twitter, String tweet){
 		#ifdef PRINT_DEBUG_MESSAGES
-		    Particle.publish(SPARK_PUBLISH_TOPIC, "ts::setTwitter(twitter: " + twitter + "\")" , SPARK_PUBLISH_TTL, PRIVATE);
+			Particle.publish(SPARK_PUBLISH_TOPIC, "ts::setTwitter(twitter: " + twitter + ", tweet: " + tweet + ")" , SPARK_PUBLISH_TTL, PRIVATE);
 		#endif
 		// Max # bytes for ThingSpeak field is 255 (UTF-8)
-		if(twitter.length() > FIELDLENGTH_MAX) return ERR_OUT_OF_RANGE;
+		if((twitter.length() > FIELDLENGTH_MAX) || (tweet.length() > FIELDLENGTH_MAX)) return ERR_OUT_OF_RANGE;
+		
 		this->nextWriteTwitter = twitter;
-		return OK_SUCCESS;
-	};
-
-
-	/**
-	 * @brief Set the message to be sent to twitter on a channel update.
-	 * To send a message to twitter call setTwitter() and setTweet() then call writeFields()
-	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
-	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
-	 * @see setTwitter, writeFields()
-	 * @code
-		void loop() {
-			int sensor1Value = analogRead(A0);
-			float sensor2Voltage = analogRead(A1) * (3.3 / 4095.0);
-			String sensor3Meaning;
-			int sensor3Value = analogRead(A2);
-			if (sensor3Value < 400) {
-				sensor3Meaning = String("Too Cold!");
-			} else if (sensor3Value > 600) {
-				sensor3Meaning = String("Too Hot!");
-			} else {
-				sensor3Meaning = String("Just Right");
-			}
-			long timeRead = millis();
-
-			ThingSpeak.setField(1, sensor1Value);
-			ThingSpeak.setField(2, sensor2Voltage);
-			ThingSpeak.setField(3, timeRead);
-			ThingSpeak.setTwitter("YourTwitterAccountName");
-			ThingSpeak.setTweet(sensor3Meaning);
-			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-			delay(20000);	
-		}
-	 * @endcode
-	 */	
-	int setTweet(const char * tweet)
-	{
-		return setTweet(String(tweet));
-	};
-
-	/**
-	 * @brief Set the message to be sent to twitter on a channel update.
-	 * To send a message to twitter call setTwitter() and setTweet() then call writeFields()
-	 * @param tweet Twitter message as a String (UTF-8) limited to 140 character.
-	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
-	 * @see setTwitter, writeFields()
-	 * @code
-		void loop() {
-			int sensor1Value = analogRead(A0);
-			float sensor2Voltage = analogRead(A1) * (3.3 / 4095.0);
-			String sensor3Meaning;
-			int sensor3Value = analogRead(A2);
-			if (sensor3Value < 400) {
-				sensor3Meaning = String("Too Cold!");
-			} else if (sensor3Value > 600) {
-				sensor3Meaning = String("Too Hot!");
-			} else {
-				sensor3Meaning = String("Just Right");
-			}
-			long timeRead = millis();
-
-			ThingSpeak.setField(1, sensor1Value);
-			ThingSpeak.setField(2, sensor2Voltage);
-			ThingSpeak.setField(3, timeRead);
-			ThingSpeak.setTwitter("YourTwitterAccountName");
-			ThingSpeak.setTweet(sensor3Meaning);
-			ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-			delay(20000);	
-		}
-	 * @endcode
-	 */	
-    int setTweet(String tweet)
-	{
-		#ifdef PRINT_DEBUG_MESSAGES
-		    Particle.publish(SPARK_PUBLISH_TOPIC, "ts::setTweet(tweet: " + tweet + "\")" , SPARK_PUBLISH_TTL, PRIVATE);
-		#endif
-		// Max # bytes for ThingSpeak field is 255 (UTF-8)
-		if(tweet.length() > FIELDLENGTH_MAX) return ERR_OUT_OF_RANGE;
 		this->nextWriteTweet = tweet;
-		return OK_SUCCESS;
-	};
+		
+		return OK_SUCCESS;	
+	};	
 	
 	/**
 	 * @brief Set the created-at date of a multi-field update.
 	 * To record created-at of a write, call setField() for each of the fields you want to write, setCreatedAt(), and then call writeFields()
 	 * @param createdAt Desired timestamp to be included with the channel update as a String.  The timestamp string must be in the ISO 8601 format. Example "2017-01-12 13:22:54"
 	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
+	 * @remark Timezones can be set using the timezone hour offset parameter. For example, a timestamp for Eastern Standard Time is: "2017-01-12 13:22:54-05".  If no timezone hour offset parameter is used, UTC time is assumed.
 	 * @see setField(), writeFields()
 	 * @code
 		void loop() {
@@ -947,16 +947,18 @@ class ThingSpeakClass
 		}
 	 * @endcode
 	 */
-	int setCreatedAt(const char * createdAt)
+
+	 int setCreatedAt(const char * createdAt)
 	{
 		return setCreatedAt(String(createdAt));
 	}
 	
-/**
+    /**
 	 * @brief Set the created-at date of a multi-field update.
 	 * To record created-at of a write, call setField() for each of the fields you want to write, setCreatedAt(), and then call writeFields()
 	 * @param createdAt Desired timestamp to be included with the channel update as a String.  The timestamp string must be in the ISO 8601 format. Example "2017-01-12 13:22:54"
 	 * @return HTTP status code of 200 if successful.  See getLastReadStatus() for other possible return values.
+	 * @remark Timezones can be set using the timezone hour offset parameter. For example, a timestamp for Eastern Standard Time is: "2017-01-12 13:22:54-05".  If no timezone hour offset parameter is used, UTC time is assumed.
 	 * @see setField(), writeFields()
 	 * @code
 		void loop() {
